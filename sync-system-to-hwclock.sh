@@ -1,3 +1,4 @@
+#!/bin/bash
 # 系统时间同步到硬件时钟脚本（每5分钟执行）
 # 日志路径
 LOG_FILE="/var/log/hwclock-sync.log"
