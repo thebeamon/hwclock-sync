@@ -1,0 +1,15 @@
+[Unit]
+Description=每2分钟触发系统时间同步到硬件时钟
+Requires=hwclock-sync.service
+
+[Timer]
+# 启动后延迟10秒首次执行，之后每2分钟执行
+OnBootSec=10s
+OnUnitActiveSec=2min
+# 定时器持久化（重启后仍生效）
+Persistent=true
+# 定时器日志级别
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

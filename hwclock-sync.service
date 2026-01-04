@@ -1,0 +1,19 @@
+[Unit]
+Description=同步系统时间到硬件时钟
+Documentation=man:hwclock(8)
+After=syslog.target
+
+[Service]
+Type=oneshot  # 单次执行（由timer触发）
+# 移除User/Group配置（默认root运行，避免解析异常）
+ExecStart=/usr/local/bin/sync-system-to-hwclock.sh
+# 日志重定向（确保日志文件可写）
+StandardOutput=append:/var/log/hwclock-sync.log
+StandardError=append:/var/log/hwclock-sync.log
+# 补充：确保日志文件权限正确
+PermissionsStartOnly=true
+ExecStartPre=/bin/chown root:root /var/log/hwclock-sync.log
+ExecStartPre=/bin/chmod 644 /var/log/hwclock-sync.log
+
+[Install]
+WantedBy=multi-user.target

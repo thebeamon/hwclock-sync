@@ -1,0 +1,26 @@
+部署方式：
+cp hwclock-sync.service /etc/systemd/system/
+cp hwclock-sync.timer /etc/systemd/system/
+同步脚本(注意赋予root权限)：
+cp sync-system-to-hwclock.sh /usr/local/bin/
+************************************************
+重新加载systemd配置
+systemctl daemon-reload
+
+启用定时器
+systemctl enable hwclock-sync.timer
+
+启动定时器
+systemctl start hwclock-sync.timer
+
+验证状态
+systemctl status hwclock-sync.timer
+查看定时器下次执行时间
+systemctl list-timers hwclock-sync.timer
+**************************************************
+查看脚本日志
+cat /var/log/hwclock-sync.log
+查看systemd服务日志
+journalctl -u hwclock-sync.service -f
+查看定时器日志
+journalctl -u hwclock-sync.timer -f
